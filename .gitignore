@@ -3,8 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Logs
+# Logs e dados
 monitoramento_internet.csv
+relatorio_*.txt
+
+# Configurações locais (mantém config.json no repo como exemplo)
+# config.json
 
 # VS Code
 .vscode/
