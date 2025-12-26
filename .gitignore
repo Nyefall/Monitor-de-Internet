@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+monitoramento_internet.csv
+
+# VS Code
+.vscode/

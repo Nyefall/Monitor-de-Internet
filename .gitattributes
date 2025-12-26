@@ -1,2 +1,12 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Custom for Python
+*.py text diff=python
+*.pyw text diff=python
+
+# Custom for Markdown
+*.md text
+
+# Custom for CSV
+*.csv text
