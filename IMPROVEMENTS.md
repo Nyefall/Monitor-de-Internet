@@ -18,13 +18,13 @@
 ### Available Settings
 ```json
 {
-    "meta_download": 1000,
-    "meta_upload": 500,
-    "meta_ping": 20,
-    "intervalo_auto_teste": 30,
+    "download_target": 1000,
+    "upload_target": 500,
+    "ping_target": 20,
+    "auto_test_interval": 30,
     "ping_targets": ["8.8.8.8", "1.1.1.1", "208.67.222.222"],
     "ping_count": 4,
-    "grafico_ultimos_n": 30
+    "graph_last_n": 30
 }
 ```
 
@@ -33,7 +33,7 @@
 ## ✅ B. MVC Architecture (Separation of Concerns)
 
 ### Problem Solved
-- ❌ Before: Giant `MonitorInternetApp` class did everything
+- ❌ Before: Giant `InternetMonitorApp` class did everything
 - ✅ Now: 4 specialized classes with unique responsibilities
 
 ### Implemented Structure
@@ -41,9 +41,9 @@
 #### 1. **ConfigManager** (Model - Configuration)
 ```python
 class ConfigManager:
-    - carregar_config()
-    - salvar_config()
-    - atualizar()
+    - load_config()
+    - save_config()
+    - update()
     - get()
 ```
 **Responsibility:** Manage config.json file
@@ -51,29 +51,29 @@ class ConfigManager:
 #### 2. **InternetTester** (Model - Test Logic)
 ```python
 class InternetTester:
-    - executar_speedtest()
-    - medir_perda_pacotes()  # Multi-server
+    - run_speedtest()
+    - measure_packet_loss()  # Multi-server
 ```
 **Responsibility:** Execute speed and ping tests
 
 #### 3. **DataManager** (Model - Persistence)
 ```python
 class DataManager:
-    - salvar_teste()
-    - carregar_dados()
-    - obter_estatisticas()
-    - _verificar_migrar_formato()
+    - save_test()
+    - load_data()
+    - get_statistics()
+    - _check_migrate_format()
 ```
 **Responsibility:** Manage CSV with cache and migration
 
-#### 4. **MonitorInternetApp** (View/Controller - UI)
+#### 4. **InternetMonitorApp** (View/Controller - UI)
 ```python
-class MonitorInternetApp:
+class InternetMonitorApp:
     - setup_ui()
-    - iniciar_teste()
-    - finalizar_teste()
-    - atualizar_grafico_embedded()
-    - abrir_configuracoes()
+    - start_test()
+    - finish_test()
+    - update_embedded_graph()
+    - open_settings()
 ```
 **Responsibility:** Graphical interface and coordination
 
@@ -94,16 +94,16 @@ class MonitorInternetApp:
 ### Implementation
 
 ```python
-def medir_perda_pacotes(self) -> int:
+def measure_packet_loss(self) -> int:
     ping_targets = ["8.8.8.8", "1.1.1.1", "208.67.222.222"]
-    resultados = []
+    results = []
     
     for target in ping_targets:
         # Try each server
         # Add result if successful
     
     # Return average of results
-    return int(sum(resultados) / len(resultados))
+    return int(sum(results) / len(results))
 ```
 
 ### Configurable Servers
@@ -147,20 +147,20 @@ def medir_perda_pacotes(self) -> int:
 
 ### 3. Type Hints (Typing)
 ```python
-def carregar_config(self) -> Dict:
-def medir_perda_pacotes(self) -> int:
-def obter_estatisticas(self, ultimos_n: int = 10) -> Optional[Dict]:
+def load_config(self) -> Dict:
+def measure_packet_loss(self) -> int:
+def get_statistics(self, last_n: int = 10) -> Optional[Dict]:
 ```
 **Benefit:** Better autocomplete and error prevention
 
 ### 4. Professional Docstrings
 ```python
-def salvar_teste(...) -> Tuple[bool, str]:
+def save_test(...) -> Tuple[bool, str]:
     """
     Saves test result to CSV (append mode).
     
     Parameters:
-        data_hora: String in format "dd/mm/YYYY HH:MM:SS"
+        date_time: String in format "dd/mm/YYYY HH:MM:SS"
         down/up/ping: Numeric values (will be formatted with comma)
         ...
     
@@ -192,7 +192,7 @@ def salvar_teste(...) -> Tuple[bool, str]:
 ### 8. Thread-Safety in UI
 ```python
 # Test thread does NOT update UI directly
-self.root.after(0, lambda: self.finalizar_teste(...))
+self.root.after(0, lambda: self.finish_test(...))
 ```
 - Tests executed in separate thread (doesn't freeze interface)
 - UI updates always via `root.after()` (main thread)
@@ -218,7 +218,7 @@ self.root.after(0, lambda: self.finalizar_teste(...))
 ### Move to Another Machine
 1. Copy the project folder
 2. Run `pip install -r requirements.txt`
-3. Run `python "Velocidade Internet.py"`
+3. Run `python "Internet Monitor.py"`
 4. ✅ config.json will be created automatically
 
 ---
@@ -268,7 +268,7 @@ import unittest
 class TestInternetTester(unittest.TestCase):
     def test_multi_ping(self):
         tester = InternetTester(config)
-        loss = tester.medir_perda_pacotes()
+        loss = tester.measure_packet_loss()
         self.assertGreaterEqual(loss, 0)
 ```
 
@@ -277,7 +277,7 @@ class TestInternetTester(unittest.TestCase):
 @app.route('/api/test', methods=['POST'])
 def run_test():
     tester = InternetTester(config)
-    result = tester.executar_speedtest()
+    result = tester.run_speedtest()
     return jsonify(result)
 ```
 

@@ -1,9 +1,9 @@
 {
-    "meta_download": 1000,
-    "meta_upload": 500,
-    "meta_ping": 20,
-    "intervalo_auto_teste": 30,
+    "download_target": 1000,
+    "upload_target": 500,
+    "ping_target": 20,
+    "auto_test_interval": 30,
     "ping_targets": ["8.8.8.8", "1.1.1.1", "208.67.222.222"],
     "ping_count": 4,
-    "grafico_ultimos_n": 30
+    "graph_last_n": 30
 }

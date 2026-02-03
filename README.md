@@ -71,7 +71,7 @@ pip install -r requirements.txt
 
 ### Step 3: Run the application
 ```bash
-python "Velocidade Internet.py"
+python "Internet Monitor.py"
 ```
 
 > 💡 **Tip:** On first run, a `config.json` file will be automatically created with default values. You can customize it later.
@@ -80,7 +80,7 @@ python "Velocidade Internet.py"
 ```bash
 # Download the repository ZIP, extract it, and in the folder:
 pip install speedtest-cli pandas matplotlib
-python "Velocidade Internet.py"
+python "Internet Monitor.py"
 ```
 
 ## 🎯 How to Use
@@ -125,17 +125,17 @@ Edit via GUI (⚙️ Config) or directly in `config.json`:
 
 ```json
 {
-    "meta_download": 1000,           // Download target in Mbps
-    "meta_upload": 500,              // Upload target in Mbps
-    "meta_ping": 20,                 // Maximum acceptable latency (ms)
-    "intervalo_auto_teste": 30,      // Minutes between automatic tests
+    "download_target": 1000,         // Download target in Mbps
+    "upload_target": 500,            // Upload target in Mbps
+    "ping_target": 20,               // Maximum acceptable latency (ms)
+    "auto_test_interval": 30,        // Minutes between automatic tests
     "ping_targets": [                // Servers for packet loss test
         "8.8.8.8",                   // Google DNS
         "1.1.1.1",                   // Cloudflare DNS
         "208.67.222.222"             // OpenDNS
     ],
     "ping_count": 4,                 // Number of packets per server
-    "grafico_ultimos_n": 30          // Tests displayed in graph
+    "graph_last_n": 30               // Tests displayed in graph
 }
 ```
 
@@ -146,7 +146,7 @@ The code follows a separation of concerns pattern with **complete inline documen
 - **`ConfigManager`:** Manages configuration via JSON
 - **`InternetTester`:** Executes speed and ping tests (business logic)
 - **`DataManager`:** Manages CSV with cache and automatic migration
-- **`MonitorInternetApp`:** GUI and coordination (UI only)
+- **`InternetMonitorApp`:** GUI and coordination (UI only)
 
 **Code Quality:**
 - ✅ 100% documented (docstrings + explanatory comments)
@@ -159,15 +159,15 @@ The code follows a separation of concerns pattern with **complete inline documen
 
 ```
 Monitor-de-Internet/
-├── Velocidade Internet.py      # Main code (~1000 lines, 4 classes)
+├── Internet Monitor.py          # Main code (~1000 lines, 4 classes)
 ├── config.json                  # Settings (auto-generated)
-├── monitoramento_internet.csv   # Historical data (generated after 1st test)
-├── relatorio_*.txt             # Generated reports
-├── requirements.txt            # Python dependencies
-├── README.md                   # This file
-├── IMPROVEMENTS.md             # Technical documentation of implemented improvements
-├── .gitignore                  # Files ignored by Git
-└── .gitattributes              # Git configuration
+├── internet_monitor.csv         # Historical data (generated after 1st test)
+├── report_*.txt                 # Generated reports
+├── requirements.txt             # Python dependencies
+├── README.md                    # This file
+├── IMPROVEMENTS.md              # Technical documentation of implemented improvements
+├── .gitignore                   # Files ignored by Git
+└── .gitattributes               # Git configuration
 ```
 
 ## 📚 Documentation
