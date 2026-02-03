@@ -1,6 +1,35 @@
 # Monitor de Internet
 
-Aplicativo de desktop profissional desenvolvido em Python para monitorar a qualidade da conexão de internet com arquitetura MVC, testes automatizados e configurações personalizáveis.
+Aplicativo de desktop desenvolvido em Python que **monitora a qualidade da sua conexão de internet em tempo real**. Executa testes de velocidade (download/upload), mede latência (ping) e detecta perda de pacotes, salvando todo o histórico para análise posterior.
+
+## 🎯 O que este projeto faz
+
+- **Testa a velocidade real** da sua internet (download e upload em Mbps)
+- **Mede a latência** (ping) até os servidores de teste
+- **Detecta perda de pacotes** pingando múltiplos servidores DNS (Google, Cloudflare, OpenDNS)
+- **Salva histórico** de todos os testes em CSV para análise
+- **Gera gráficos** mostrando a evolução da qualidade ao longo do tempo
+- **Compara com suas metas** e indica visualmente se a conexão está boa (verde), regular (amarelo) ou ruim (vermelho)
+- **Automatiza testes** em intervalos configuráveis (ex: a cada 30 minutos)
+- **Gera relatórios** estatísticos completos em texto
+
+**Ideal para:** Documentar problemas com seu provedor, monitorar a qualidade da conexão ao longo do dia, ou simplesmente acompanhar se você está recebendo o que contratou.
+
+## 🛠️ Tecnologias Utilizadas
+
+| Tecnologia | Versão | Por que foi escolhida |
+|------------|--------|----------------------|
+| **Python** | 3.7+ | Linguagem versátil, ótima para automação e com bibliotecas maduras para análise de dados |
+| **Tkinter** | Nativo | Interface gráfica nativa do Python, sem dependências extras, funciona em qualquer SO |
+| **speedtest-cli** | 2.1+ | Biblioteca oficial do Speedtest.net, resultados confiáveis e reconhecidos |
+| **pandas** | 1.0+ | Padrão da indústria para manipulação de dados, facilita cálculos estatísticos |
+| **matplotlib** | 3.0+ | Biblioteca robusta para gráficos, integra bem com Tkinter |
+
+**Por que essas escolhas?**
+- **Python + Tkinter:** Permite criar um executável portátil sem instalações complexas
+- **speedtest-cli:** Usa a mesma infraestrutura do site speedtest.net, garantindo precisão
+- **pandas + matplotlib:** Combinação clássica para análise e visualização de dados
+- **Arquitetura MVC:** Código organizado em classes separadas para fácil manutenção
 
 ## 🚀 Funcionalidades
 
@@ -23,42 +52,71 @@ Aplicativo de desktop profissional desenvolvido em Python para monitorar a quali
 
 ## 📋 Pré-requisitos
 
-- Python 3.7 ou superior
+- **Python 3.7 ou superior** ([Download aqui](https://www.python.org/downloads/))
+- **Conexão com a internet** (para os testes funcionarem)
+- **Windows, Linux ou macOS** (multiplataforma)
 
-## 🔧 Instalação
+## 🔧 Instalação e Execução
 
-1. Clone este repositório:
+### Passo 1: Clone o repositório
 ```bash
 git clone https://github.com/Nyefall/Monitor-de-Internet.git
 cd Monitor-de-Internet
 ```
 
-2. Instale as dependências:
+### Passo 2: Instale as dependências
 ```bash
 pip install -r requirements.txt
 ```
 
-## 🎯 Como Usar
-
-1. Execute o aplicativo:
+### Passo 3: Execute o aplicativo
 ```bash
 python "Velocidade Internet.py"
 ```
 
-2. Na primeira execução, um arquivo `config.json` será criado com valores padrão.
+> 💡 **Dica:** Na primeira execução, um arquivo `config.json` será criado automaticamente com valores padrão. Você pode personalizar depois.
 
-3. **Botões disponíveis:**
-   - **INICIAR TESTE:** Executa teste único
-   - **🔄 Auto:** Ativa/desativa testes automáticos periódicos
-   - **📊 Relatório:** Gera análise estatística completa
-   - **⚙️ Config:** Abre menu de configurações
-   - **📂 Logs:** Abre pasta com arquivos CSV e relatórios
+### Alternativa: Executar sem clonar
+```bash
+# Baixe o ZIP do repositório, extraia, e na pasta:
+pip install speedtest-cli pandas matplotlib
+python "Velocidade Internet.py"
+```
 
-4. **Personalize as configurações** via menu Config:
-   - Metas de Download/Upload/Ping
-   - Intervalo entre testes automáticos
-   - Servidores de ping para redundância
-   - Quantidade de testes exibidos no gráfico
+## 🎯 Como Usar
+
+### Interface Principal
+Após executar, você verá o dashboard com 4 cards de métricas e botões de ação:
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Dashboard de Monitoramento                         │
+├──────────┬──────────┬──────────┬──────────┐        │
+│ Download │  Upload  │   Ping   │  Perda   │        │
+│ 450 Mbps │ 230 Mbps │  12 ms   │   0%     │        │
+└──────────┴──────────┴──────────┴──────────┘        │
+│                                                     │
+│  [INICIAR TESTE] [Auto] [Relatório] [Config] [Logs]│
+│                                                     │
+│  📈 Gráfico de histórico aqui                      │
+└─────────────────────────────────────────────────────┘
+```
+
+### Botões disponíveis
+| Botão | Função |
+|-------|--------|
+| **INICIAR TESTE** | Executa um teste único de velocidade |
+| **🔄 Auto** | Liga/desliga testes automáticos periódicos |
+| **📊 Relatório** | Gera análise estatística em arquivo .txt |
+| **⚙️ Config** | Abre menu para ajustar metas e configurações |
+| **📂 Logs** | Abre pasta com CSV e relatórios gerados |
+
+### Personalizando
+Clique em **⚙️ Config** para ajustar:
+- Metas de Download/Upload/Ping (para os indicadores de cor)
+- Intervalo entre testes automáticos
+- Servidores de ping para redundância
+- Quantidade de testes exibidos no gráfico
 
 ## ⚙️ Configurações Disponíveis
 
