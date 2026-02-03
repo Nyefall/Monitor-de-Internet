@@ -196,4 +196,4 @@ Contribuições são bem-vindas! Abra issues ou pull requests.
 
 ## 📄 Licença
 
-Este projeto é de código aberto.
+MIT License
