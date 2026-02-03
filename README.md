@@ -197,5 +197,6 @@ Contributions are welcome! Open issues or pull requests.
 
 ## 📄 License
 
+MIT License
 
-This project is open source.
+This project is licensed under the MIT License. See the LICENSE file for details.
